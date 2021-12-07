@@ -29,7 +29,9 @@
   "dependencies": {
     "@aws-amplify/auth": "^3.4.32",
     "@types/aws-lambda": "^8.10.76",
+    "@types/uuid": "^8.3.3",
     "aws-amplify": "^4.0.0",
-    "aws-sdk": "^2.900.0"
+    "aws-sdk": "^2.900.0",
+    "uuid": "^8.3.2"
   }
 }
