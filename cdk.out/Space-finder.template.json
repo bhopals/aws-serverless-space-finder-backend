@@ -326,10 +326,78 @@
         "aws:asset:property": "Code"
       }
     },
+    "helloNodeLambdaServiceRole2ED6B642": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "Space-finder/helloNodeLambda/ServiceRole/Resource"
+      }
+    },
+    "helloNodeLambda065ED102": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "a7e7bd47d11b81f610166a6aa3da3a960fefd8f670ed25a36337011986fac161.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "helloNodeLambdaServiceRole2ED6B642",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs14.x"
+      },
+      "DependsOn": [
+        "helloNodeLambdaServiceRole2ED6B642"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "Space-finder/helloNodeLambda/Resource",
+        "aws:asset:path": "asset.a7e7bd47d11b81f610166a6aa3da3a960fefd8f670ed25a36337011986fac161",
+        "aws:asset:original-path": "/Users/bsingh/git-repos/aws-serverless-space-finder-backend",
+        "aws:asset:is-bundled": true,
+        "aws:asset:property": "Code"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQTU/DMAyGfwv3NGxM4t4NcUOgjfvkJqZ4bZKqTjZVVf87zgLaOPnxK3+89pNe6dUDXLgytqt6avR8iGA6JdJxhoFaiHiBSc975FgPpHZf/g5rY0LyUb3g0IfJoaCod5lMazFrBaQ1pNHgFviW/M4s/IbxO9gsFVoUgZP1oS91EhfVg2ss6FmEDxwdMVPw6jV5EzOI/MeLspMHF6xc9glNGXKFRfHmCMwYWdc5SK63yXQYs7slF76nOKR4M3qty5eQb/+5Ft4Fb6ms9MGiPvHjef2s1xt58ImJqlEeRQ71vsQfH7Jkz3sBAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQQU/DMAyFfwv3NGxM4t4NcRugwb1yE1PSNklVJ0xV1f+O04A6Tu/zU/wc+0Hu5O4OrlQo3RW9qeX8HkB1gq1qhsE0EPAKk5wvSKEcjDh9uhsslfLRBfGEQ+8ni4zs3lSc1mDyMnCrj6PCI9BW/GZmPmP48jpZmRZhwPJ43+d3rIvowdYa5MzGG47WEBnvxHN0KiRg+48XoScH1mve7APqHLLCIuhQAREGkmUSruUxqg7D+rs8o3JeY0vyZZUtlVNeYxhi2LZYQ9KaxjX/VmI+eadN7kyBsqX77/2j3B/4+i0ZU4x8RWNRXrL+AHbNtQyYAQAA"
       },
       "Metadata": {
         "aws:cdk:path": "Space-finder/CDKMetadata/Default"
