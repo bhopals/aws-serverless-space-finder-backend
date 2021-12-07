@@ -4,9 +4,9 @@ import {
   Code,
   Runtime,
   Function as LambdaFunction,
-} from "aws-cdk-lib/lib/aws-lambda";
+} from "aws-cdk-lib/aws-lambda";
 
-import { RestApi, LambdaIntegration } from "aws-cdk-lib/lib/aws-apigateway";
+import { RestApi, LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
 
 import { join } from "path";
 import { GenericTable } from "./GenericTable";
