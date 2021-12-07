@@ -11,7 +11,7 @@ import { RestApi, LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
 import { join } from "path";
 import { GenericTable } from "./GenericTable";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-
+import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 export class SpaceStack extends Stack {
   private api = new RestApi(this, "SpaceApi");
   private spacesTable = new GenericTable("SpacesTable", "space-id", this);
@@ -30,6 +30,12 @@ export class SpaceStack extends Stack {
       handler: "handler",
     });
 
+    const s3ListPolicy = new PolicyStatement();
+    s3ListPolicy.addActions("s3:ListAllMyBuckets");
+    s3ListPolicy.addResources("*");
+    helloLambdaNodeJS.addToRolePolicy(s3ListPolicy);
+
+    // Webpack
     // const helloLambdaWebpack = new LambdaFunction(this, "helloLambdaWebPack", {
     //   runtime: Runtime.NODEJS_14_X,
     //   code: Code.fromAsset(join(__dirname, "..", "build", "nodeHelloLambda")),
