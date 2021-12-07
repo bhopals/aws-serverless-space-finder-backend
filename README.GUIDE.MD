@@ -108,6 +108,38 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 - Create `Infrastructure` folder and add `Launcher.ts` (Entry Point) and `SpaceStack.ts` (Project Stack)
 - Create `cdk.json` and add app/stack intializer code
 
+### Build Lambda
+
+1. Problem specific to TS and Node
+   a. Node Lambda - with esbuild - fully integrated with CDK
+   Node Lambda is a CDK Construct + esbuild Library, and its fully integrated with CDK
+   b. Webpack - hard to configure
+
+2. The effort will pay off:
+   a. Fast Lambdas
+
+- Lambda Bundling Problem:
+
+  - Deploy Implementation and dependencies
+  - Transform TS into JS
+
+- Lambda DEPLOY Implementations:
+
+  1.  MONO Repo - (Old way of doing - Not recommended)
+      -> Deploy the node modules
+      -> Hard Distinction between Lambdas
+  2.  Node Lambda - Amazon NodeJS Library - AWS Construct - (Better)
+      -> Experimental - not anymore
+      -> Requires Docker installed - not anymore
+      -> Docker Image/Installation(around 4GB) is required
+
+      Solution - npm install --save-dev esbuild
+      \*Esbuild to bundle your code in your environment. Otherwise, bundling will happen in a Lambda Compatible Docker Container
+
+  3.  Webpack - (Best)
+      -> initial Difficult configuration
+      -> Small and fast bundles
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
