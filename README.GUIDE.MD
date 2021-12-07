@@ -104,7 +104,9 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 ### AWS Serverless Space Finder Backend
 
 - Initialze node project - npm init -y
--
+- Install npm packages - npm i -D aws-cdk aws-cdk-lib constructs ts-node typescript
+- Create `Infrastructure` folder and add `Launcher.ts` (Entry Point) and `SpaceStack.ts` (Project Stack)
+- Create `cdk.json` and add app/stack intializer code
 
 REFERENCE
 
