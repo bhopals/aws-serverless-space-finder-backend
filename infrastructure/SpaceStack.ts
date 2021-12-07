@@ -9,9 +9,11 @@ import {
 import { RestApi, LambdaIntegration } from "aws-cdk-lib/lib/aws-apigateway";
 
 import { join } from "path";
+import { GenericTable } from "./GenericTable";
 
 export class SpaceStack extends Stack {
   private api = new RestApi(this, "SpaceApi");
+  private spacesTable = new GenericTable("SpacesTable", "space-id", this);
 
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
@@ -24,7 +26,7 @@ export class SpaceStack extends Stack {
 
     //Hello Api Lambda Integration
     const helloLambdaIntegration = new LambdaIntegration(helloLambda);
-    const helloLambdaResource = this.api.root.addResource('hello')
-    helloLambdaResource;.addMethod('GET', helloLambdaIntegration)
+    const helloLambdaResource = this.api.root.addResource("hello");
+    helloLambdaResource.addMethod("GET", helloLambdaIntegration);
   }
 }
