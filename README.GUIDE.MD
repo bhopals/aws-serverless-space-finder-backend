@@ -101,6 +101,11 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 
 - Debugging issue - Always prefer to look into `aws-cdk` github page for known issues or enhancements - https://github.com/aws/aws-cdk/issues
 
+### AWS Serverless Space Finder Backend
+
+- Initialze node project - npm init -y
+-
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
