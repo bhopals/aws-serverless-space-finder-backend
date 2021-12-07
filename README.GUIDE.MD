@@ -147,6 +147,13 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 
 - TESTING and DEBUGGING Lambda
 
+- Calling Lambda from Local Machine
+  - make sure you have `ts-node` installed - npm dependency
+  - create vscode launch.json - refer - test/vscode.json
+  - Add Breakpoint in Lambda - services/node-lambda/hello.ts
+  - create test file - test/playground/Hello.ts
+  - Run the Test file
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
