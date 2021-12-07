@@ -113,3 +113,5 @@ REFERENCE
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
 
 - AWS Construct Libraries - https://docs.aws.amazon.com/cdk/api/latest/docs/aws-construct-library.html
+
+- App Generator - https://cdkworkshop.com/20-typescript/20-create-project/100-cdk-init.html
