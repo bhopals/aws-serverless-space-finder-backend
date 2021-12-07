@@ -139,6 +139,11 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
   3.  Webpack - (Best)
       -> initial Difficult configuration
       -> Small and fast bundles
+      Solution:
+      - npm i -D webpack webpack-cli ts-loader @types/webpack
+      - create webpack.config.ts
+      - create tsconfig.webpack.json
+      - add npm run build - webpack
 
 REFERENCE
 
