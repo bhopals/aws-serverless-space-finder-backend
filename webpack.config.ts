@@ -20,6 +20,9 @@ const config: Configuration = {
       },
     ],
   },
+  externals: {
+    "aws-sdk": "aws-sdk",
+  },
   resolve: {
     extensions: [".ts", ".js"],
   },
