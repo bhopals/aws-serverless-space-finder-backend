@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bhopals/aws-serverless-space-finder-backend#readme",
   "devDependencies": {
+    "@types/node": "^16.11.12",
     "aws-cdk": "^2.0.0",
     "aws-cdk-lib": "^2.0.0",
     "constructs": "^10.0.10",
