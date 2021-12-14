@@ -3,6 +3,7 @@ import { Table, AttributeType } from "aws-cdk-lib/aws-dynamodb";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
 import { join } from "path";
+import { off } from "process";
 export interface TableProps {
   tableName: string;
   primaryKey: string;
@@ -10,6 +11,7 @@ export interface TableProps {
   readLambdaPath?: string;
   updateLambdaPath?: string;
   deleteLambdaPath?: string;
+  secondaryIndexes?: string[];
 }
 
 export class GenericTable {
@@ -35,6 +37,7 @@ export class GenericTable {
 
   private initialize() {
     this.createTable();
+    this.addSecondaryIndexes();
     this.createLambdas();
     this.grantTableRights();
   }
@@ -68,6 +71,20 @@ export class GenericTable {
     if (this.props.deleteLambdaPath) {
       this.deleteLambda = this.createSingleLambda(this.props.deleteLambdaPath);
       this.deleteLamabdaIntegration = new LambdaIntegration(this.deleteLambda);
+    }
+  }
+
+  private addSecondaryIndexes() {
+    if (this.props.secondaryIndexes) {
+      for (const secondaryIndex of this.props.secondaryIndexes) {
+        this.table.addGlobalSecondaryIndex({
+          indexName: secondaryIndex,
+          partitionKey: {
+            name: secondaryIndex,
+            type: AttributeType.STRING,
+          },
+        });
+      }
     }
   }
 

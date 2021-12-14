@@ -20,6 +20,7 @@ export class SpaceStack extends Stack {
     primaryKey: "space-id",
     createLambdaPath: "Create",
     readLambdaPath: "Read",
+    secondaryIndexes: ["location"],
   });
 
   constructor(scope: Construct, id: string, props: StackProps) {
