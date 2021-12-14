@@ -503,6 +503,12 @@ function version(uuid) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (version);
 
+/***/ }),
+/* 17 */
+/***/ ((module) => {
+
+module.exports = require("aws-sdk");
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -580,10 +586,17 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.handler = void 0;
 const uuid_1 = __webpack_require__(1);
+const aws_sdk_1 = __webpack_require__(17);
+const s3Client = new aws_sdk_1.S3();
 async function handler(event, context) {
+    const buckets = await s3Client.listBuckets().promise();
+    console.log("Got an Event!!", event);
     return {
         statusCode: 200,
-        body: "Hello From Node Lambda!!" + (0, uuid_1.v4)(),
+        body: {
+            message: "Hello From Node Lambda!!" + (0, uuid_1.v4)(),
+            detalis: JSON.stringify(buckets.Buckets),
+        },
     };
 }
 exports.handler = handler;

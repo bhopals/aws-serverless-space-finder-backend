@@ -1,4 +1,3 @@
-import { handler } from "../../services/node-lambda/hello";
-console.log("Handler Test Start...");
-handler({}, {});
-console.log("Handler Test Finish...");
+import { handler } from "../../services/SpacesTable/Create";
+
+handler({} as any, {} as any);
