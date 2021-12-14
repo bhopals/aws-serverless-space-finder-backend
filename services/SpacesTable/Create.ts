@@ -6,6 +6,7 @@ import {
 } from "aws-lambda";
 import { v3, v4 } from "uuid";
 
+const TABLE_NAME = process.env.TABLE_NAME;
 const dbClient = new DynamoDB.DocumentClient();
 
 async function handler(
@@ -24,7 +25,7 @@ async function handler(
   try {
     await dbClient
       .put({
-        TableName: "SpacesTable",
+        TableName: TABLE_NAME!,
         Item: item,
       })
       .promise();

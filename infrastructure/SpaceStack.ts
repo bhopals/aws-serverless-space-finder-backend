@@ -14,7 +14,12 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 export class SpaceStack extends Stack {
   private api = new RestApi(this, "SpaceApi");
-  private spacesTable = new GenericTable("SpacesTable", "space-id", this);
+
+  private spacesTable = new GenericTable(this, {
+    tableName: "spacesTable",
+    primaryKey: "space-id",
+    createLambdaPath: "Create",
+  });
 
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
@@ -46,5 +51,15 @@ export class SpaceStack extends Stack {
     const helloLambdaIntegration = new LambdaIntegration(helloLambda);
     const helloLambdaResource = this.api.root.addResource("hello");
     helloLambdaResource.addMethod("GET", helloLambdaIntegration);
+
+    //SPACES API Integration
+    const spaceResources = this.api.root.addResource("spaces");
+    spaceResources.addMethod("POST", this.spacesTable.createLamabdaIntegration);
+    spaceResources.addMethod("GET", this.spacesTable.readLamabdaIntegration);
+    spaceResources.addMethod("PUT", this.spacesTable.updateLamabdaIntegration);
+    spaceResources.addMethod(
+      "DELETE",
+      this.spacesTable.deleteLamabdaIntegration
+    );
   }
 }
