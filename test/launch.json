@@ -12,8 +12,9 @@
       "runtimeArgs": ["-r", "ts-node/register"],
       "args": ["${relativeFile}"],
       "env": {
-        "AWS_REGION": "us-west-2"
-        //AWS SECRETS
+        "AWS_REGION": "us-west-2",
+        "TABLE_NAME": "SpacesTable",
+        "PRIMARY_KEY": "spaceId"
       }
     }
   ]
