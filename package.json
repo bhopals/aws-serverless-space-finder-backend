@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/bhopals/aws-serverless-space-finder-backend#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.88",
     "@types/jest": "^27.0.3",
     "@types/mocha": "^9.0.0",
     "@types/node": "^15.0.1",
@@ -35,7 +36,6 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "^3.4.32",
-    "@types/aws-lambda": "^8.10.76",
     "@types/uuid": "^8.3.3",
     "aws-amplify": "^4.0.0",
     "aws-sdk": "^2.1044.0",
