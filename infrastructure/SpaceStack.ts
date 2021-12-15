@@ -20,6 +20,8 @@ export class SpaceStack extends Stack {
     primaryKey: "space-id",
     createLambdaPath: "Create",
     readLambdaPath: "Read",
+    updateLambdaPath: "Update",
+    deleteLambdaPath: "Delete",
     secondaryIndexes: ["location"],
   });
 
