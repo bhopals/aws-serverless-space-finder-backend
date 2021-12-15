@@ -29,11 +29,11 @@ async function handler(
     const updateResult = await dbClient
       .update({
         TableName: TABLE_NAME,
-        key: {
+        Key: {
           [PRIMARY_KEY]: spaceId,
         },
-        UpdateExpressions: "set #zzzNew = : new",
-        ExpressionAttributeValue: {
+        UpdateExpression: "set #zzzNew = : new",
+        ExpressionAttributeValues: {
           ":new": requestBodyValue,
         },
         ExpressionAttributeNames: {
@@ -45,19 +45,6 @@ async function handler(
 
     result.body = JSON.stringify(updateResult);
   }
-
-  // try {
-  //   await dbClient
-  //     .put({
-  //       TableName: TABLE_NAME!,
-  //       Item: item,
-  //     })
-  //     .promise();
-  //   result.body = JSON.stringify(`Created Item with id: ${item.spaceId}`);
-  // } catch (error: any) {
-  //   result.body = error.message;
-  // }
-
   return result;
 }
 
