@@ -19,18 +19,21 @@ async function handler(
     body: "Hello From DynamoDB",
   };
 
-  const spaceId = event.queryStringParameters?.[PRIMARY_KEY];
-
-  if (spaceId) {
-    const deleteResult = await dbClient
-      .delete({
-        TableName: TABLE_NAME,
-        Key: {
-          [PRIMARY_KEY]: spaceId,
-        },
-      })
-      .promise();
-    result.body = JSON.stringify(deleteResult);
+  try {
+    const spaceId = event.queryStringParameters?.[PRIMARY_KEY];
+    if (spaceId) {
+      const deleteResult = await dbClient
+        .delete({
+          TableName: TABLE_NAME,
+          Key: {
+            [PRIMARY_KEY]: spaceId,
+          },
+        })
+        .promise();
+      result.body = JSON.stringify(deleteResult);
+    }
+  } catch (err: any) {
+    result.body = JSON.stringify(err.body);
   }
 
   return result;
