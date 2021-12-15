@@ -1,5 +1,9 @@
 import { DynamoDB } from "aws-sdk";
 import {
+  MissingFieldError,
+  validateAsSpaceEntry,
+} from "../shared/inputValidator";
+import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
   Context,
@@ -18,11 +22,11 @@ async function handler(
     body: "Hello From DynamoDB",
   };
 
-  const item =
-    typeof event.body === "object" ? event.body : JSON.parse(event.body);
-  item.spaceId = v4();
-
   try {
+    const item =
+      typeof event.body === "object" ? event.body : JSON.parse(event.body);
+    item.spaceId = v4();
+    validateAsSpaceEntry(item);
     await dbClient
       .put({
         TableName: TABLE_NAME!,
@@ -31,6 +35,11 @@ async function handler(
       .promise();
     result.body = JSON.stringify(`Created Item with id: ${item.spaceId}`);
   } catch (error: any) {
+    if (error instanceof MissingFieldError) {
+      result.statusCode = 403;
+    } else {
+      result.statusCode = 500;
+    }
     result.body = error.message;
   }
 
