@@ -167,6 +167,8 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
     }
     }
 
+- INPUT VALIDATIONS
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
