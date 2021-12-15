@@ -171,7 +171,7 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 
   - Refer - shared/InputValidator.ts
 
-- Generate 10 digits KEY in NODE
+- Generate 10 digits KEY in NODE instead of using any external package
   - Math.random().toString(36).slice(2) // x4fjxpwug4t
 
 REFERENCE
