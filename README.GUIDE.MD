@@ -169,6 +169,11 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 
 - INPUT VALIDATIONS
 
+  - Refer - shared/InputValidator.ts
+
+- Generate 10 digits KEY in NODE
+  - Math.random().toString(36).slice(2) // x4fjxpwug4t
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
