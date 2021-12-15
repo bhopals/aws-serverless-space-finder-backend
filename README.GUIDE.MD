@@ -148,11 +148,24 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 - TESTING and DEBUGGING Lambda
 
 - Calling Lambda from Local Machine
+
   - make sure you have `ts-node` installed - npm dependency
   - create vscode launch.json - refer - test/vscode.json
   - Add Breakpoint in Lambda - services/node-lambda/hello.ts
   - create test file - test/playground/Hello.ts
   - Run the Test file
+
+  - String and undefined
+
+    - Add an Exclamation Mark in the back of the param - const mayBeUndefined! = process.env.NODE_ENV
+    - Use `as` - const mayBeUndefined = process.env.NODE_ENV as string
+    - Also at some places you could use `Optional Chaining` - office?.address?.street
+
+  - DynamoDB client UPDATE do require you to pass a KEY attribute - {
+    key: {
+    [PRIMARY_KEY]: <PrimaryKeyValue>
+    }
+    }
 
 REFERENCE
 
