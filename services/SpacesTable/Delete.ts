@@ -16,7 +16,7 @@ async function handler(
 ): Promise<APIGatewayProxyResult> {
   const result: APIGatewayProxyResult = {
     statusCode: 200,
-    body: "Hello From DynamoDB DELETE",
+    body: "Hello From DynamoDB DELETE Operation",
   };
 
   try {
