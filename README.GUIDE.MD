@@ -178,7 +178,7 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 
 - Understanding AWS Cognito
 
-  - User Pools - User Directories that provide sign-up and sign-in options for your app users.
+  - USER POOLS - User Directories that provide sign-up and sign-in options for your app users.
 
     - Stores User Data
     - Basic Authentication Solution - JWT Tokens
@@ -190,7 +190,7 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
       - If successful validation, Cognito returns a JWT Token (timely expired)
       - User could use this JWT Token to access the secured API's
 
-    - Create a User Pool (Options and Features)
+    - CREATE A USER POOL (OPTIONS AND FEATURES)
 
       - Add Name, Atrtributes, MFA Verifications, Messaging, Tags, Devices, App Clients
       - Also, can add Lambda Triggers - Pre sign-up, Pre Authentication, Post Authentication, Create/Verify Auth Challange, Pre Token Generation
@@ -201,22 +201,40 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
         - This will give an `app-client-id`
       - The generated `pool-id` and `app-client-id` would be used to Authentication
 
-    - Practical
+    - PRACTICAL
 
       - npm i aws-amplify @aws-amplify/auth
       - Refer - `test/playground/Auth/*` to sign in and get a token generated from AWS Cognito.
 
     - In AWS API, we could use AWS Cognito for Authrization.
+
       - Create New Authorizer ==> Select `Cognito` type ==> Select `Cognito User Pool` ==> Select `Authorizer` Header ==> Create
 
-  - Identity Pools - It provides AWS Credential to grant your users access to Other AWS Services
-    - Fine grained Access Control - a user assumes an Identity
-    - Can directly call AWS SDK Commands
+    - Cognito Groups
+      - Using Cognito Groups we can provide fine-grained access control
 
-- First Contact with Cognito
-- User Pools
-- Understand JWT Tokens
-- Groups
+  - IDENTITY POOLS - It provides AWS Credential to grant your users access (by assuming role) to Other AWS Services
+
+    - Fine grained Access Control - a user assumes an Identity
+    - Can directly call AWS SDK Commands - S3 Bucket
+
+    - FLOW
+
+      - User submits an username and password combination to Amanzon Cognito
+      - Cognito validates the credential
+      - If successful validation, Cognito returns a JWT Token (timely expired)
+      - User could use this JWT Token to access the secured API's
+      - HERE, the JWT token can contains an IAM access role which the User Can Assume
+      - Assuming role is like accessing Temporary Credentials
+
+    - CREATE NEW IDENTITY POOL
+      - Give a name to Identity pool - `mytestidentitypool`
+      - Enable access to unidentified identities ==> CHECK THE BOX
+        - Amazon Congnito can support unauthenticated identities by providing a unique identifier and AWS Credentials for users who do not authenticate with an Identity provider. If your application allows customers to use the
+          application without logging in, you can enable access for unauthenticated identities.
+          - Enabling access to unidentified identities means anyone with internet can be granted
+            AWS credentials. Unauthenticated identities are typically users who do not log in to your application.
+            Typically, the permissions that you assign for unauthenticated identities should be more restrictive than those for authenticated identities.
 
 REFERENCE
 
