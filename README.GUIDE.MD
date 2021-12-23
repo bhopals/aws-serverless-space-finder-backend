@@ -274,6 +274,11 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
           - Go to that section
           - Instead of `use-default-role`, select `choose-role-from-token`
 
+  - AWS Cognito Use CASES
+    - Fine-Grained Access Control With Amazon Cognito Identity Pools ( https://www.youtube.com/watch?v=tAUmz94O2Qo )
+    - Serverless Authentication and Authorization ( https://www.youtube.com/watch?v=VZqG7HjT2AQ )
+    - Building Multi-Tenant Solutions on AWS ( https://www.youtube.com/watch?v=mwQ5lipGTBI )
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
