@@ -3,6 +3,7 @@ import {
   UserPool,
   UserPoolClient,
   CfnIdentityPool,
+  CfnIdentityPoolRoleAttachment,
 } from "aws-cdk-lib/aws-cognito";
 import {
   Effect,
@@ -21,7 +22,7 @@ export class IdentityPoolWrapper {
   private authenticatedRole: Role;
   private unAuthenticatedRole: Role;
 
-  private adminRole: Role;
+  public adminRole: Role;
 
   constructor(
     scope: Construct,
@@ -37,6 +38,7 @@ export class IdentityPoolWrapper {
   private initialize() {
     this.initilizeIdentityPool();
     this.initializeIAMRoles();
+    this.attachRoles();
   }
 
   private initilizeIdentityPool() {
@@ -94,7 +96,7 @@ export class IdentityPoolWrapper {
 
     // this.unAuthenticatedRole.addToPolicy(//TODO)
 
-    this.adminRole = new Role(this.scope, "CognitoDefaultAuthenticatedRole", {
+    this.adminRole = new Role(this.scope, "CognitoAdminRole", {
       assumedBy: new FederatedPrincipal("cognito-identity.amazonaws.com", {
         StringEquals: {
           "cognito-identity.amazonaws.com:aud": this.IdentityPool.ref,
@@ -112,5 +114,22 @@ export class IdentityPoolWrapper {
         resources: ["*"],
       })
     );
+  }
+
+  private attachRoles() {
+    new CfnIdentityPoolRoleAttachment(this.scope, "RolesAttachment", {
+      identityPoolId: this.IdentityPool.ref,
+      roles: {
+        authenticated: this.authenticatedRole.roleArn,
+        unauthenticated: this.unAuthenticatedRole.roleArn,
+      },
+      roleMappings: {
+        adminsMapping: {
+          type: "token",
+          ambiguousRoleResolution: "AuthenticatedRole",
+          identityProvider: `${this.userPool.userPoolProviderName}:${this.userPoolClient.userPoolClientId}`,
+        },
+      },
+    });
   }
 }
