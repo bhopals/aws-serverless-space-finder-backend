@@ -1,5 +1,6 @@
 import { v4 } from "uuid";
 import { S3 } from "aws-sdk";
+import { APIGatewayProxyEvent } from "aws-lambda";
 
 const s3Client = new S3();
 
