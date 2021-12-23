@@ -262,6 +262,18 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
 
           - When Amazon Cognito receives a user request, the service will determine if the request is either `authenticated` or `unauthenticated`, determine which role is associated with that authentication type, and then use the policy attached to that role to response to that request.
 
+        - SELECT ROLES
+
+          - For Authenticated Identities
+          - For Unauthenticated Identities
+
+        - CREATE IDENTITY POOL
+        - Once created, it generates `Identity Pool ID`
+
+        - If we have selected `Cognito` as Authentication Provider
+          - Go to that section
+          - Instead of `use-default-role`, select `choose-role-from-token`
+
 REFERENCE
 
 - AWS Typescript Workshop - https://cdkworkshop.com/20-typescript.html
