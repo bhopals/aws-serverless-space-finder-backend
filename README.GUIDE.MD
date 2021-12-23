@@ -202,7 +202,12 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
       - The generated `pool-id` and `app-client-id` would be used to Authentication
 
     - Practical
+
       - npm i aws-amplify @aws-amplify/auth
+      - Refer - `test/playground/Auth/*` to sign in and get a token generated from AWS Cognito.
+
+    - In AWS API, we could use AWS Cognito for Authrization.
+      - Create New Authorizer ==> Select `Cognito` type ==> Select `Cognito User Pool` ==> Select `Authorizer` Header ==> Create
 
   - Identity Pools - It provides AWS Credential to grant your users access to Other AWS Services
     - Fine grained Access Control - a user assumes an Identity
