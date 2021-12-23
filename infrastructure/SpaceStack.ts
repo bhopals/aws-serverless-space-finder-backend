@@ -6,7 +6,12 @@ import {
   Function as LambdaFunction,
 } from "aws-cdk-lib/aws-lambda";
 
-import { RestApi, LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
+import {
+  RestApi,
+  LambdaIntegration,
+  MethodOptions,
+  AuthorizationType,
+} from "aws-cdk-lib/aws-apigateway";
 
 import { join } from "path";
 import { GenericTable } from "./GenericTable";
@@ -48,6 +53,13 @@ export class SpaceStack extends Stack {
     s3ListPolicy.addResources("*");
     helloLambdaNodeJS.addToRolePolicy(s3ListPolicy);
 
+    const optionsWithAuthorizer: MethodOptions = {
+      authorizationType: AuthorizationType.COGNITO,
+      authorizer: {
+        authorizerId: this.authorizer.authorizer.authorizerId,
+      },
+    };
+
     // Webpack
     // const helloLambdaWebpack = new LambdaFunction(this, "helloLambdaWebPack", {
     //   runtime: Runtime.NODEJS_14_X,
@@ -58,7 +70,11 @@ export class SpaceStack extends Stack {
     //Hello Api Lambda Integration
     const helloLambdaIntegration = new LambdaIntegration(helloLambda);
     const helloLambdaResource = this.api.root.addResource("hello");
-    helloLambdaResource.addMethod("GET", helloLambdaIntegration);
+    helloLambdaResource.addMethod(
+      "GET",
+      helloLambdaIntegration,
+      optionsWithAuthorizer
+    );
 
     //SPACES API Integration
     const spaceResources = this.api.root.addResource("spaces");
