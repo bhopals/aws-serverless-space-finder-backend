@@ -191,6 +191,7 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
       - User could use this JWT Token to access the secured API's
 
     - Create a User Pool (Options and Features)
+
       - Add Name, Atrtributes, MFA Verifications, Messaging, Tags, Devices, App Clients
       - Also, can add Lambda Triggers - Pre sign-up, Pre Authentication, Post Authentication, Create/Verify Auth Challange, Pre Token Generation
       - Once created It will gives a Pool ID `pool-id`
@@ -199,6 +200,9 @@ You can use the cdk bootstrap command to install the bootstrap stack into an env
         - Create App Client
         - This will give an `app-client-id`
       - The generated `pool-id` and `app-client-id` would be used to Authentication
+
+    - Practical
+      - npm i aws-amplify @aws-amplify/auth
 
   - Identity Pools - It provides AWS Credential to grant your users access to Other AWS Services
     - Fine grained Access Control - a user assumes an Identity
