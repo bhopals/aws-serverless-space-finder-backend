@@ -1,4 +1,4 @@
-import { Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, Fn, Stack, StackProps } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import {
   Code,
@@ -18,10 +18,13 @@ import { GenericTable } from "./GenericTable";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { AuthorizerWrapper } from "./auth/AuthorizerWrapper";
+import { Bucket, HttpMethods } from "aws-cdk-lib/aws-s3";
 
 export class SpaceStack extends Stack {
   private api = new RestApi(this, "SpaceApi");
   private authorizer: AuthorizerWrapper;
+  private suffix: string;
+  private spacePhotosBucket: Bucket;
 
   private spacesTable = new GenericTable(this, {
     tableName: "spacesTable",
@@ -36,6 +39,8 @@ export class SpaceStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
     this.authorizer = new AuthorizerWrapper(this, this.api);
+    this.initializeSuffix();
+    this.inititializeSpacesPhotosBucket();
 
     const helloLambda = new LambdaFunction(this, "helloLambda", {
       runtime: Runtime.NODEJS_14_X,
@@ -85,5 +90,27 @@ export class SpaceStack extends Stack {
       "DELETE",
       this.spacesTable.deleteLamabdaIntegration
     );
+  }
+
+  private initializeSuffix() {
+    const shortStackId = Fn.select(2, Fn.split("/", this.stackId));
+    const suffix = Fn.select(4, Fn.split("-", shortStackId));
+    this.suffix = suffix;
+  }
+
+  private inititializeSpacesPhotosBucket() {
+    this.spacePhotosBucket = new Bucket(this, "spaces-photos", {
+      bucketName: "spaces-photos-" + this.suffix,
+      cors: [
+        {
+          allowedMethods: [HttpMethods.HEAD, HttpMethods.PUT, HttpMethods.GET],
+          allowedOrigins: ["*"],
+          allowedHeaders: ["*"],
+        },
+      ],
+    });
+    new CfnOutput(this, "space-photos-bucket-name", {
+      value: this.spacePhotosBucket.bucketName,
+    });
   }
 }
