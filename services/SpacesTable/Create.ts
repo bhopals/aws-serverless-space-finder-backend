@@ -9,7 +9,7 @@ import {
   Context,
 } from "aws-lambda";
 // import { v4 } from "uuid";
-import { generateRandomId, getEventBody } from "../shared/Utils";
+import { generateRandomId, getEventBody, addCorsHeader } from "../shared/Utils";
 
 const TABLE_NAME = process.env.TABLE_NAME;
 const dbClient = new DynamoDB.DocumentClient();
@@ -22,7 +22,7 @@ async function handler(
     statusCode: 200,
     body: "Hello From DynamoDB",
   };
-
+  addCorsHeader(result);
   try {
     const item = getEventBody(event);
     // item.spaceId = v4();
@@ -34,7 +34,9 @@ async function handler(
         Item: item,
       })
       .promise();
-    result.body = JSON.stringify(`Created Item with id: ${item.spaceId}`);
+    result.body = JSON.stringify({
+      id: item.spaceId,
+    });
   } catch (error: any) {
     if (error instanceof MissingFieldError) {
       result.statusCode = 403;

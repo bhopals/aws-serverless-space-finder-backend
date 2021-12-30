@@ -5,6 +5,7 @@ import {
   Context,
 } from "aws-lambda";
 import { v3, v4 } from "uuid";
+import { addCorsHeader } from "../shared/Utils";
 
 const TABLE_NAME = process.env.TABLE_NAME as string;
 const PRIMARY_KEY = process.env.PRIMARY_KEY as string;
@@ -18,6 +19,7 @@ async function handler(
     statusCode: 200,
     body: "Hello From DynamoDB DELETE Operation",
   };
+  addCorsHeader(result);
 
   try {
     const spaceId = event.queryStringParameters?.[PRIMARY_KEY];
