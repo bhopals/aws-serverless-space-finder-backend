@@ -46,21 +46,21 @@ export class SpaceStack extends Stack {
       this.spacePhotosBucket.bucketArn + "/*"
     );
 
-    // const helloLambda = new LambdaFunction(this, "helloLambda", {
-    //   runtime: Runtime.NODEJS_14_X,
-    //   code: Code.fromAsset(join(__dirname, "..", "services", "hello")),
-    //   handler: "hello.handler",
-    // });
+    const helloLambda = new LambdaFunction(this, "helloLambda", {
+      runtime: Runtime.NODEJS_14_X,
+      code: Code.fromAsset(join(__dirname, "..", "services", "hello")),
+      handler: "hello.handler",
+    });
 
-    // const helloLambdaNodeJS = new NodejsFunction(this, "helloNodeLambda", {
-    //   entry: join(__dirname, "..", "services", "node-lambda", "hello.ts"),
-    //   handler: "handler",
-    // });
+    const helloLambdaNodeJS = new NodejsFunction(this, "helloNodeLambda", {
+      entry: join(__dirname, "..", "services", "node-lambda", "hello.ts"),
+      handler: "handler",
+    });
 
-    // const s3ListPolicy = new PolicyStatement();
-    // s3ListPolicy.addActions("s3:ListAllMyBuckets");
-    // s3ListPolicy.addResources("*");
-    // helloLambdaNodeJS.addToRolePolicy(s3ListPolicy);
+    const s3ListPolicy = new PolicyStatement();
+    s3ListPolicy.addActions("s3:ListAllMyBuckets");
+    s3ListPolicy.addResources("*");
+    helloLambdaNodeJS.addToRolePolicy(s3ListPolicy);
 
     const optionsWithAuthorizer: MethodOptions = {
       authorizationType: AuthorizationType.COGNITO,
@@ -70,11 +70,11 @@ export class SpaceStack extends Stack {
     };
 
     // Webpack
-    // const helloLambdaWebpack = new LambdaFunction(this, "helloLambdaWebPack", {
-    //   runtime: Runtime.NODEJS_14_X,
-    //   code: Code.fromAsset(join(__dirname, "..", "build", "nodeHelloLambda")),
-    //   handler: "nodeHelloLambda.handler",
-    // });
+    const helloLambdaWebpack = new LambdaFunction(this, "helloLambdaWebPack", {
+      runtime: Runtime.NODEJS_14_X,
+      code: Code.fromAsset(join(__dirname, "..", "build", "nodeHelloLambda")),
+      handler: "nodeHelloLambda.handler",
+    });
 
     //Hello Api Lambda Integration
     const helloLambdaIntegration = new LambdaIntegration(helloLambda);
