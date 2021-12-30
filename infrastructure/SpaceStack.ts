@@ -38,25 +38,29 @@ export class SpaceStack extends Stack {
 
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
-    this.authorizer = new AuthorizerWrapper(this, this.api);
     this.initializeSuffix();
     this.inititializeSpacesPhotosBucket();
+    this.authorizer = new AuthorizerWrapper(
+      this,
+      this.api,
+      this.spacePhotosBucket.bucketArn + "/*"
+    );
 
-    const helloLambda = new LambdaFunction(this, "helloLambda", {
-      runtime: Runtime.NODEJS_14_X,
-      code: Code.fromAsset(join(__dirname, "..", "services", "hello")),
-      handler: "hello.handler",
-    });
+    // const helloLambda = new LambdaFunction(this, "helloLambda", {
+    //   runtime: Runtime.NODEJS_14_X,
+    //   code: Code.fromAsset(join(__dirname, "..", "services", "hello")),
+    //   handler: "hello.handler",
+    // });
 
-    const helloLambdaNodeJS = new NodejsFunction(this, "helloNodeLambda", {
-      entry: join(__dirname, "..", "services", "node-lambda", "hello.ts"),
-      handler: "handler",
-    });
+    // const helloLambdaNodeJS = new NodejsFunction(this, "helloNodeLambda", {
+    //   entry: join(__dirname, "..", "services", "node-lambda", "hello.ts"),
+    //   handler: "handler",
+    // });
 
-    const s3ListPolicy = new PolicyStatement();
-    s3ListPolicy.addActions("s3:ListAllMyBuckets");
-    s3ListPolicy.addResources("*");
-    helloLambdaNodeJS.addToRolePolicy(s3ListPolicy);
+    // const s3ListPolicy = new PolicyStatement();
+    // s3ListPolicy.addActions("s3:ListAllMyBuckets");
+    // s3ListPolicy.addResources("*");
+    // helloLambdaNodeJS.addToRolePolicy(s3ListPolicy);
 
     const optionsWithAuthorizer: MethodOptions = {
       authorizationType: AuthorizationType.COGNITO,
