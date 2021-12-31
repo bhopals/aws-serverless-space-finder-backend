@@ -11,6 +11,8 @@ import {
   LambdaIntegration,
   MethodOptions,
   AuthorizationType,
+  ResourceOptions,
+  Cors,
 } from "aws-cdk-lib/aws-apigateway";
 
 import { join } from "path";
@@ -87,8 +89,15 @@ export class SpaceStack extends Stack {
       optionsWithAuthorizer
     );
 
+    const optionsWithCors: ResourceOptions = {
+      defaultCorsPreflightOptions: {
+        allowOrigins: Cors.ALL_ORIGINS,
+        allowMethods: Cors.ALL_METHODS,
+      },
+    };
+
     //SPACES API Integration
-    const spaceResources = this.api.root.addResource("spaces");
+    const spaceResources = this.api.root.addResource("spaces", optionsWithCors);
     spaceResources.addMethod("POST", this.spacesTable.createLamabdaIntegration);
     spaceResources.addMethod("GET", this.spacesTable.readLamabdaIntegration);
     spaceResources.addMethod("PUT", this.spacesTable.updateLamabdaIntegration);
