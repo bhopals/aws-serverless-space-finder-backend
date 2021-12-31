@@ -96,7 +96,7 @@ export class SpaceStack extends Stack {
       },
     };
 
-    //SPACES API Integration
+    //SPACES API Integration METHODS and RESOURCES
     const spaceResources = this.api.root.addResource("spaces", optionsWithCors);
     spaceResources.addMethod("POST", this.spacesTable.createLamabdaIntegration);
     spaceResources.addMethod("GET", this.spacesTable.readLamabdaIntegration);
