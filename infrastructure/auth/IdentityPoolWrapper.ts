@@ -46,7 +46,7 @@ export class IdentityPoolWrapper {
   private initilizeIdentityPool() {
     this.IdentityPool = new CfnIdentityPool(
       this.scope,
-      "SpaceFinderIdentityPoolId",
+      "SpaceFinderIdentityPool",
       {
         allowUnauthenticatedIdentities: true,
         cognitoIdentityProviders: [
