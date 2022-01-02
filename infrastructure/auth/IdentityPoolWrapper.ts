@@ -48,7 +48,7 @@ export class IdentityPoolWrapper {
       this.scope,
       "SpaceFinderIdentityPool",
       {
-        allowUnauthenticatedIdentities: true,
+        allowUnauthenticatedIdentities: true, //to enable unauthenticated identity
         cognitoIdentityProviders: [
           {
             clientId: this.userPoolClient.userPoolClientId,
