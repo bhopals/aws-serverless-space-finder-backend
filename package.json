@@ -24,7 +24,7 @@
     "@types/mocha": "^9.0.0",
     "@types/node": "^15.0.1",
     "@types/webpack": "^5.28.0",
-    "aws-cdk": "2.0.0-rc.1",
+    "aws-cdk": "^2.15.0",
     "aws-cdk-lib": "^2.0.0-rc.1",
     "constructs": "^10.0.5",
     "esbuild": "^0.14.2",
